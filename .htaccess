@@ -1,0 +1,6 @@
+Options -indexes
+RewriteCond %{yonetimpaneli} !-f
+RewriteEngine On
+RewriteBase /yonetimpaneli/
+RewriteRule ^liste/(.*)$ index.php?sayfa=liste&tablo=$1 [NC]
+RewriteRule ^modul-ekle$ index.php?sayfa=modul-ekle [NC]
