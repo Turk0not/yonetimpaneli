@@ -1,17 +1,30 @@
 <?php
 @session_start();
 @ob_start();
+
 define("DATA", "data/");
 define("SAYFA","include/");
 define("SINIF","class/");
 include_once(DATA."baglanti.php");
+
 global $sitebaslik;
 global $siteanahtar;
 global $siteaciklama;
 global $siteURL;
 
-
 define("SITE",$siteURL);
+error_reporting(0);
+if (!empty($_SESSION["ID"]) && !empty($_SESSION["adsoyad"]) && !empty($_SESSION["mail"]))
+{
+
+}
+else
+{
+    ?>
+    <meta http-equiv="refresh" content="0;url=<?= SITE ?>giris-yap"/>
+    <?php
+    exit();
+}
 ?>
 
 
@@ -44,6 +57,11 @@ define("SITE",$siteURL);
     <!-- DataTables -->
     <link rel="stylesheet" href="<?= SITE ?>plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= SITE ?>plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="<?= SITE ?>plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="<?= SITE ?>plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="<?= SITE ?>plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <title> <?= $sitebaslik?> </title>
@@ -125,6 +143,8 @@ include_once (DATA."footer.php");
 <script src="<?= SITE ?>plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= SITE ?>plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="<?= SITE ?>plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- Select2 -->
+<script src="<?= SITE ?>plugins/select2/js/select2.full.min.js"></script>
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="<?= SITE ?>dist/js/pages/dashboard.js"></script>
@@ -147,6 +167,54 @@ include_once (DATA."footer.php");
             "responsive": true,
         });
     });
+</script>
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+    })
+</script>
+<script src="<?= SITE ?>plugins/summernote/summernote-bs4.min.js"></script>
+<script>
+    $(function () {
+        // Summernote
+        $('.textarea').summernote()
+    })
+    function aktifpasif(ID,tablo)
+    {
+        var durum=0;
+        if ($(".aktifpasif"+ID).is(':checked'))
+        {
+            durum=1;
+        }
+        else
+        {
+            durum=2;
+        }
+
+        $.ajax({
+            method:"POST",
+            url:"<?=SITE?>ajax.php",
+            data:{"tablo":tablo,"ID":ID,"durum":durum},
+            succes: function(sonuc)
+            {
+                if(sonuc=="TAMAM")
+                {
+
+                }
+                else
+                {
+                    alert("İşleminiz şuan geçersizdir. Lütfen daha sonra tekrar deneyiniz.");
+                }
+            }
+        });
+
+    }
 </script>
 </body>
 </html>
