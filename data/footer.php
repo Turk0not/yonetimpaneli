@@ -5,14 +5,10 @@
                 <div class="col-xl-4 col-md-6 col-lg-3">
                     <div class="footer_widget">
                         <div class="footer_logo">
-                            <a href="#">
-                                <img src="img/footer_logo.png" alt="">
+                            <a href="<?=SITE?>">
+                                <img src="<?=SITE?>img/footer_logo.png" alt="">
                             </a>
                         </div>
-                        <p>
-                            Esteem spirit temper too say adieus who <br> direct esteem. It esteems luckily or <br>
-                            picture placing drawing.
-                        </p>
                         <div class="socail_links">
                             <ul>
                                 <li>
@@ -43,27 +39,33 @@
                 <div class="col-xl-2 col-md-6 col-lg-3">
                     <div class="footer_widget">
                         <h3 class="footer_title">
-                            Services
+                            Sayfalar
                         </h3>
                         <ul>
-                            <li><a href="#">SEO/SEM </a></li>
-                            <li><a href="#">Web design </a></li>
-                            <li><a href="#">Ecommerce</a></li>
-                            <li><a href="#">Digital marketing</a></li>
+                            <li><a href="<?=SITE?>">Anasayfa </a></li>
+                            <?php
+                            $kurumsal=$VT->VeriGetir("kurumsal","WHERE durum=?",array(1),"ORDER BY sirano ASC",1);
+                            if ($kurumsal!=false)
+                            {
+                                for ($i=0;$i<count($kurumsal);$i++)
+                                {
+                                    ?>
+                                    <li><a href="<?=SITE?>kurumsal/<?=$kurumsal [$i] ["seflink"]?>"><?=stripslashes($kurumsal[$i]["baslik"])?></a></li>
+                                    <?php
+                                }
+                            }
+                            ?>
+                            <li><a href="<?=SITE?>hizmetler">Hizmetler</a></li>
+                            <li><a href="<?=SITE?>projeler">Projeler</a></li>
                         </ul>
 
                     </div>
                 </div>
                 <div class="col-xl-2 col-md-6 col-lg-2">
                     <div class="footer_widget">
-                        <h3 class="footer_title">
-                            Useful Links
-                        </h3>
                         <ul>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#"> Contact</a></li>
-                            <li><a href="#">Support</a></li>
+                            <li><a href="<?=SITE?>bloglar">Bloglar</a></li>
+                            <li><a href="<?=SITE?>iletisim">İletişim</a></li>
                         </ul>
                     </div>
                 </div>
@@ -90,7 +92,7 @@
                 <div class="col-xl-12">
                     <p class="copy_right text-center">
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        Copyright &copy;<?=date("Y")?> Tüm Hakları Saklıdır  <i class="fa fa-heart-o" aria-hidden="true"></i> Tasarım <a href="https://colorlib.com" target="_blank">Mustafa Palta</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>
